@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+    /* ── Colores principales ── */
+    --color-primary:        #e85d26;
+    --color-primary-hover:  #c94d1c;
+    --color-primary-light:  #fff8f5;
+    --color-primary-border: #fcd5c0;
+
+    /* ── Fondos ── */
+    --color-bg:      #f7f6f2;
+    --color-white:   #ffffff;
+    --color-surface: #fafaf8;
+
+    /* ── Texto ── */
+    --color-text:       #1a1a1a;
+    --color-text-muted: #888888;
+    --color-text-light: #bbbbbb;
+
+    /* ── Bordes ── */
+    --color-border:       #e8e6e0;
+    --color-border-hover: #d0cec8;
+
+    /* ── Semánticos ── */
+    --color-success:     #1d7a3f;
+    --color-success-bg:  #e8f8ee;
+    --color-info:        #1a6fa8;
+    --color-info-bg:     #e8f4fd;
+    --color-danger:      #c0392b;
+    --color-danger-bg:   #fff0f0;
+    --color-warning:     #b85e0a;
+    --color-warning-bg:  #fff8e8;
+
+    /* ── Tipografía ── */
+    --font-sans:     'Plus Jakarta Sans', sans-serif;
+    --font-xs:   11px;
+    --font-sm:   13px;
+    --font-md:   15px;
+    --font-lg:   18px;
+    --font-xl:   22px;
+    --font-2xl:  28px;
+    --font-3xl:  36px;
+
+    /* ── Espaciado ── */
+    --space-xs:  4px;
+    --space-sm:  8px;
+    --space-md:  16px;
+    --space-lg:  24px;
+    --space-xl:  40px;
+
+    /* ── Bordes redondeados ── */
+    --radius-sm:   8px;
+    --radius-md:   12px;
+    --radius-lg:   16px;
+    --radius-xl:   20px;
+    --radius-pill: 999px;
+
+    /* ── Sombras ── */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+
+    /* ── Layout ── */
+    --navbar-height:    60px;
+    --max-width:        1100px;
+    --page-padding:     28px;
+}
