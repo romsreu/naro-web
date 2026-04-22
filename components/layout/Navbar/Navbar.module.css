@@ -1,0 +1,146 @@
+.navbar {
+    background: var(--color-white);
+    border-bottom: 1.5px solid var(--color-border);
+    height: var(--navbar-height);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--page-padding);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* ── Logo ── */
+.logo {
+    font-size: var(--font-xl);
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: var(--color-text);
+    flex-shrink: 0;
+}
+
+.logoAccent {
+    color: var(--color-primary);
+}
+
+/* ── Buscador ── */
+.searchWrap {
+    flex: 1;
+    max-width: 520px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--color-bg);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 0 14px;
+    height: 40px;
+    transition: border-color 0.18s;
+}
+
+.searchWrap:focus-within {
+    border-color: var(--color-primary);
+}
+
+.searchIcon {
+    color: var(--color-text-light);
+    flex-shrink: 0;
+}
+
+.searchInput {
+    background: none;
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: var(--font-sm);
+    color: var(--color-text);
+}
+
+.searchInput::placeholder {
+    color: var(--color-text-light);
+}
+
+.searchKbd {
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: var(--font-xs);
+    color: var(--color-text-light);
+    font-family: var(--font-sans);
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+/* ── Acciones ── */
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.navLink {
+    font-size: var(--font-sm);
+    font-weight: 500;
+    color: var(--color-text-muted);
+    transition: color 0.18s;
+    white-space: nowrap;
+}
+
+.navLink:hover {
+    color: var(--color-primary);
+}
+
+.btnLogin {
+    background: var(--color-text);
+    color: var(--color-white);
+    border-radius: var(--radius-sm);
+    padding: 8px 18px;
+    font-size: var(--font-sm);
+    font-weight: 600;
+    transition: background 0.18s;
+    white-space: nowrap;
+}
+
+.btnLogin:hover {
+    background: #333;
+}
+
+/* ── Carrito ── */
+.cartBtn {
+    position: relative;
+    color: var(--color-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.18s;
+}
+
+.cartBtn:hover {
+    color: var(--color-primary);
+}
+
+.cartBadge {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    background: var(--color-primary);
+    color: var(--color-white);
+    border-radius: var(--radius-pill);
+    width: 16px;
+    height: 16px;
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
