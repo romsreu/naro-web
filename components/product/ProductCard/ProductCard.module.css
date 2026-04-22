@@ -1,0 +1,159 @@
+.card {
+    background: var(--color-white);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+/* ── Imagen ── */
+.imgWrap {
+    position: relative;
+    display: block;
+    text-decoration: none;
+}
+
+.img {
+    height: 160px;
+    background: var(--color-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.emoji {
+    font-size: 56px;
+}
+
+/* ── Badge ── */
+.badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: var(--font-xs);
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    z-index: 1;
+    letter-spacing: 0.3px;
+}
+
+.sale {
+    background: #ffecec;
+    color: var(--color-danger);
+}
+
+.nuevo {
+    background: var(--color-success-bg);
+    color: var(--color-success);
+}
+
+.tendencia {
+    background: var(--color-warning-bg);
+    color: var(--color-warning);
+}
+
+/* ── Info ── */
+.info {
+    padding: 12px 14px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+.vendedor {
+    font-size: var(--font-xs);
+    color: var(--color-text-light);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nombre {
+    font-size: var(--font-sm);
+    font-weight: 600;
+    color: var(--color-text);
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transition: color 0.15s;
+}
+
+.nombre:hover {
+    color: var(--color-primary);
+}
+
+/* ── Rating ── */
+.ratingRow {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 4px;
+}
+
+.estrellas {
+    color: #f5c842;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.reseñas {
+    font-size: var(--font-xs);
+    color: var(--color-text-light);
+}
+
+/* ── Precio y carrito ── */
+.bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+
+.precios {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+}
+
+.precio {
+    font-size: var(--font-lg);
+    font-weight: 800;
+    color: var(--color-text);
+}
+
+.precioOriginal {
+    font-size: var(--font-xs);
+    color: var(--color-text-light);
+    text-decoration: line-through;
+}
+
+.btnCarrito {
+    width: 30px;
+    height: 30px;
+    background: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+    flex-shrink: 0;
+}
+
+.btnCarrito:hover {
+    background: var(--color-primary-hover);
+}
