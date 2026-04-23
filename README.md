@@ -137,21 +137,6 @@ npm run dev
 
 Abrí [http://localhost:3000](http://localhost:3000) en tu navegador.
 
-## Convenciones del proyecto
-
-### Commits
-
-Se usa [Conventional Commits](https://www.conventionalcommits.org/):
-
-```
-feat:     nueva funcionalidad
-fix:      corrección de bug
-chore:    mantenimiento (configs, dependencias)
-refactor: reorganización sin cambio de funcionalidad
-style:    cambios de CSS / estilos
-docs:     documentación
-```
-
 ### Estructura de componentes
 
 Cada componente vive en su propia carpeta con tres archivos:
