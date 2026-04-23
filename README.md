@@ -179,6 +179,4 @@ ComponentName/
 
 ## Nota sobre el stack tecnológico
 
-Este frontend está construido con **Next.js 15**, pero **no utiliza las capacidades de servidor del framework** (API Routes, Server Actions, SSR con acceso a base de datos). Toda la lógica de negocio, autenticación y persistencia vive en **naro-api**.
-
-Esta decisión responde a una restricción del TP: el backend debe desarrollarse obligatoriamente con **Java + Spring Boot**. Next.js se usa exclusivamente como framework de UI con React.
+Este frontend está construido con **Next.js 15**, pero **no utiliza las capacidades de servidor del framework** (API Routes, Server Actions, SSR con acceso a base de datos). Toda la lógica de negocio, autenticación y persistencia vive en **naro-api**. Esta decisión responde a una restricción del TP: el backend debe desarrollarse obligatoriamente con **Java + Spring Boot**. Next.js se usa exclusivamente como framework de UI con React.
