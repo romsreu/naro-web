@@ -197,6 +197,21 @@
     transform: scale(0.99);
 }
 
+.btnSubmit:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+/* ── Error ── */
+.error {
+    background: #fff0f0;
+    border: 1.5px solid #fca5a5;
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    font-size: var(--font-sm);
+    color: #b91c1c;
+}
+
 /* ── Registro ── */
 .registerRow {
     text-align: center;
