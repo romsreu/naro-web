@@ -1,6 +1,8 @@
 import { cookies } from 'next/headers'
 import Link from 'next/link'
-import { logoutAction } from '@/app/actions/auth'
+import CartDropdown from './CartDropdown'
+import NotificationsDropdown from './NotificationsDropdown'
+import UserDropdown from './UserDropdown'
 import styles from './Navbar.module.css'
 
 function getNombreFromToken(token: string): string | null {
@@ -35,34 +37,26 @@ export default async function Navbar() {
             placeholder="Buscar productos, marcas, vendedores…"
             className={styles.searchInput}
           />
-          <kbd className={styles.searchKbd}>⌘K</kbd>
         </div>
 
         <div className={styles.actions}>
-          <Link href="/cuenta/compras" className={styles.navLink}>Mis compras</Link>
-          <Link href="/favoritos" className={styles.navLink}>Favoritos</Link>
+
+          <CartDropdown />
+          <NotificationsDropdown />
 
           {nombre ? (
-            <div className={styles.userRow}>
-              <span className={styles.userName}>Hola, {nombre}</span>
-              <form action={logoutAction}>
-                <button type="submit" className={styles.btnLogout}>Cerrar sesión</button>
-              </form>
-            </div>
+            <UserDropdown nombre={nombre} />
           ) : (
-            <Link href="/login" className={styles.btnLogin}>Iniciar sesión</Link>
+            <Link href="/login" className={styles.accountBtn}>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              Mi cuenta
+            </Link>
           )}
 
-          <Link href="/carrito" className={styles.cartBtn}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" stroke="currentColor" strokeWidth="1.8" />
-              <line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" strokeWidth="1.8" />
-              <path d="M16 10a4 4 0 01-8 0" stroke="currentColor" strokeWidth="1.8" />
-            </svg>
-            <span className={styles.cartBadge}>2</span>
-          </Link>
         </div>
-
       </div>
     </nav>
   )

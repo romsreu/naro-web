@@ -1,0 +1,174 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Cards ── */
+.card {
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.cardDanger {
+  border-color: #fca5a5;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.cardDanger .cardHeader {
+  background: #fff0f0;
+  border-bottom-color: #fca5a5;
+}
+
+.cardTitle {
+  font-size: var(--font-sm);
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 0.1px;
+}
+
+.cardDanger .cardTitle {
+  color: var(--color-danger);
+}
+
+/* ── Rows ── */
+.rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.rowInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+}
+
+.rowLabel {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.rowDesc {
+  font-size: var(--font-xs);
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+/* ── Botones de acción ── */
+.btnAction {
+  background: none;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 6px 14px;
+  font-size: var(--font-xs);
+  font-weight: 600;
+  color: var(--color-text);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.btnAction:hover {
+  border-color: var(--color-border-hover);
+  background: var(--color-bg);
+}
+
+/* ── Toggle ── */
+.toggle {
+  width: 40px;
+  height: 22px;
+  border-radius: var(--radius-pill);
+  flex-shrink: 0;
+  cursor: default;
+  position: relative;
+  transition: background 0.2s;
+}
+
+.toggleOn {
+  background: var(--color-primary);
+}
+
+.toggleOff {
+  background: var(--color-border-hover);
+}
+
+.toggleThumb {
+  position: absolute;
+  top: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  transition: left 0.2s;
+}
+
+.toggleOn .toggleThumb {
+  left: calc(100% - 19px);
+}
+
+.toggleOff .toggleThumb {
+  left: 3px;
+}
+
+/* ── Zona de peligro ── */
+.btnDangerOutline {
+  background: none;
+  border: 1.5px solid #fca5a5;
+  border-radius: var(--radius-sm);
+  padding: 6px 14px;
+  font-size: var(--font-xs);
+  font-weight: 600;
+  color: var(--color-danger);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.btnDangerOutline:hover {
+  background: #fff0f0;
+}
+
+.btnDanger {
+  background: var(--color-danger);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 6px 14px;
+  font-size: var(--font-xs);
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: opacity 0.15s;
+}
+
+.btnDanger:hover {
+  opacity: 0.85;
+}

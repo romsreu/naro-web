@@ -1,0 +1,30 @@
+.page {
+  background: var(--color-bg);
+  padding: 32px var(--page-padding) 60px;
+  min-height: calc(100vh - var(--navbar-height));
+}
+
+.inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  /* columna izquierda beige, derecha blanca — sin depender de la altura del sidebar */
+  background: linear-gradient(to right, var(--color-bg) 210px, var(--color-border) 210px, var(--color-border) 211.5px, var(--color-white) 211.5px);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  min-height: calc(100vh - var(--navbar-height) - 92px);
+}
+
+.sidebarWrap {
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+  padding: 28px;
+}

@@ -27,7 +27,13 @@ export default function RegisterPage() {
       <div className={styles.card}>
 
         <div className={styles.header}>
-          <div className={styles.icon}>🛍️</div>
+          <div className={styles.icon}>
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+          </div>
           <h1 className={styles.title}>Crear cuenta gratis</h1>
           <p className={styles.subtitle}>
             Unite a NARO y empezá a comprar y vender hoy.
@@ -150,9 +156,26 @@ export default function RegisterPage() {
         </p>
 
         <div className={styles.trust}>
-          <div className={styles.trustItem}><span>🔒</span> Conexión segura</div>
-          <div className={styles.trustItem}><span>🛡️</span> Datos protegidos</div>
-          <div className={styles.trustItem}><span>✅</span> SSL encriptado</div>
+          <div className={styles.trustItem}>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            Conexión segura
+          </div>
+          <div className={styles.trustItem}>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            Datos protegidos
+          </div>
+          <div className={styles.trustItem}>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            SSL encriptado
+          </div>
         </div>
 
       </div>
