@@ -1,12 +1,20 @@
 'use client'
 
 import Link from 'next/link'
-import { useActionState } from 'react'
+import { Suspense, useActionState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { loginAction } from '../actions/auth'
 import styles from './page.module.css'
 
 export default function LoginPage() {
+  return (
+    <Suspense>
+      <LoginForm />
+    </Suspense>
+  )
+}
+
+function LoginForm() {
   const [state, action, isPending] = useActionState(loginAction, {})
   const searchParams = useSearchParams()
   const next = searchParams.get('next') ?? ''
