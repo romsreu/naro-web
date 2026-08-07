@@ -78,6 +78,11 @@
     border-color: var(--color-border-hover);
 }
 
+.socialBtn svg {
+    display: block;
+    flex-shrink: 0;
+}
+
 /* ── Divider ── */
 .divider {
     display: flex;
