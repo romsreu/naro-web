@@ -1,17 +1,14 @@
 import { cookies } from 'next/headers'
+import { decodeToken } from '@/lib/auth/token'
 import styles from './page.module.css'
-
-function parseToken(token: string) {
-  try { return JSON.parse(atob(token.split('.')[1])) } catch { return {} }
-}
 
 export default async function PerfilPage() {
   const cookieStore = await cookies()
   const token = cookieStore.get('access_token')?.value
-  const payload = token ? parseToken(token) : {}
+  const payload = token ? decodeToken(token) : {}
 
-  const nombre = (payload.nombre as string) ?? 'Usuario'
-  const email = (payload.email as string) ?? 'usuario@email.com'
+  const nombre = payload.nombre ?? 'Usuario'
+  const email = payload.email ?? 'usuario@email.com'
   const inicial = nombre.charAt(0).toUpperCase()
 
   return (

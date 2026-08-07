@@ -2,8 +2,10 @@
 
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+import { AUTH_BASE_URL } from '@/lib/auth/config'
+import { forwardSetCookies } from '@/lib/auth/cookies'
 
-const AUTH_BASE = process.env.AUTH_SERVICE_URL ?? 'http://localhost:8081/api/auth'
+const AUTH_BASE = AUTH_BASE_URL
 
 export type AuthState = {
   error?: string
@@ -11,28 +13,7 @@ export type AuthState = {
 
 async function forwardCookies(response: Response) {
   const cookieStore = await cookies()
-  const setCookies = response.headers.getSetCookie()
-
-  for (const cookieStr of setCookies) {
-    const parts = cookieStr.split(';').map((p) => p.trim())
-    const [nameValue, ...attrs] = parts
-    const eqIdx = nameValue.indexOf('=')
-    const name = nameValue.substring(0, eqIdx)
-    const value = nameValue.substring(eqIdx + 1)
-
-    const options: Parameters<typeof cookieStore.set>[2] = {}
-    for (const attr of attrs) {
-      const lower = attr.toLowerCase()
-      if (lower === 'httponly') options.httpOnly = true
-      else if (lower === 'secure') options.secure = true
-      else if (lower.startsWith('max-age=')) options.maxAge = parseInt(attr.split('=')[1])
-      else if (lower.startsWith('path=')) options.path = attr.split('=')[1]
-      else if (lower.startsWith('samesite='))
-        options.sameSite = attr.split('=')[1].toLowerCase() as 'strict' | 'lax' | 'none'
-    }
-
-    cookieStore.set(name, value, options)
-  }
+  forwardSetCookies(response, cookieStore)
 }
 
 async function extractError(res: Response): Promise<string> {
