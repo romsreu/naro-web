@@ -1,0 +1,26 @@
+.wrapper {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 32px var(--page-padding) 60px;
+}
+
+.card {
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  padding: var(--space-xl);
+  text-align: center;
+}
+
+.title {
+  font-size: var(--font-2xl);
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: -0.5px;
+  margin-bottom: var(--space-sm);
+}
+
+.slug {
+  font-size: var(--font-sm);
+  color: var(--color-text-muted);
+}
