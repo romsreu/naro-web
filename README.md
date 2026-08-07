@@ -20,12 +20,12 @@ NARO está dividido en dos repositorios independientes que se comunican a travé
 
 | Herramienta | Uso |
 |------------|-----|
-| Next.js 15 | Framework React con App Router |
+| Next.js 16 | Framework React con App Router |
+| React 19 | Librería de UI |
 | TypeScript | Tipado estático |
 | CSS Modules | Estilos encapsulados por componente |
-| Zustand | Estado global — carrito y sesión del usuario |
-| React Hook Form | Manejo de formularios |
-| Zod | Validación de datos en el cliente |
+
+Actualmente no hay ninguna librería de estado global (Zustand, Redux, etc.) ni de formularios/validación (React Hook Form, Zod) instalada — la sesión se maneja server-side vía cookies HTTP-only.
 
 ### Flujo de autenticación
 
@@ -33,22 +33,20 @@ NARO está dividido en dos repositorios independientes que se comunican a travé
 Usuario completa form de login
           │
           ▼
-   Zod valida en el cliente
-          │
-          ▼
-   fetch POST → naro-api (via Gateway)
+   Server Action (app/actions/auth.ts) → naro-api (via Gateway)
           │
           ▼
    Gateway valida y enruta a MS Usuarios
           │
           ▼
-   Spring devuelve JWT token
+   Spring devuelve JWT (access_token + refresh_token)
           │
           ▼
-   Zustand guarda el token
+   Server Action reenvía las cookies Set-Cookie (HTTP-only) al browser
           │
           ▼
-   Redirige al home 
+   middleware.ts valida el JWT en cada request y refresca vía
+   app/api/auth/refresh (Route Handler) cuando expiró
 ```
 
 ### Flujo de datos general
@@ -58,9 +56,9 @@ Componente React
       │
       │  llama a
       ▼
-  lib/api.ts              ← funciones fetch centralizadas
+  Server Action / Route Handler   ← app/actions/*, app/api/**
       │
-      │  HTTP Request + Authorization: Bearer <JWT>
+      │  HTTP Request + cookies (access_token / refresh_token)
       ▼
   Spring Cloud Gateway    ← valida JWT, aplica circuit breaker
       │
@@ -68,7 +66,7 @@ Componente React
       ▼
   naro-api (microservicio) ← procesa y responde
       │
-      │  JSON Response
+      │  JSON Response + Set-Cookie
       ▼
   Componente React         ← renderiza los datos
 ```
@@ -78,13 +76,14 @@ Componente React
 ```
 naro-web/
 │
-├── app/          # Rutas y páginas — cada carpeta es una URL
-├── components/   # Componentes React reutilizables
-├── lib/          # Funciones y utilidades (fetch, helpers)
-├── store/        # Estado global con Zustand
-├── types/        # Tipos TypeScript compartidos
-├── styles/       # Variables CSS globales (colores, tipografía)
-└── public/       # Assets estáticos (imágenes, íconos)
+├── app/            # Rutas y páginas — cada carpeta es una URL
+│   ├── actions/    # Server Actions (login, register, logout, refresh)
+│   └── api/        # Route Handlers (ej. api/auth/refresh)
+├── components/     # Componentes React reutilizables
+├── lib/            # Funciones y utilidades (auth: config, cookies, token)
+├── styles/         # Variables CSS globales (colores, tipografía)
+├── middleware.ts   # Validación de sesión / redirecciones (Edge runtime)
+└── public/         # Assets estáticos (imágenes, íconos)
 ```
 
 ---
@@ -164,4 +163,4 @@ ComponentName/
 
 ## Nota sobre el stack tecnológico
 
-Este frontend está construido con **Next.js 15**, pero **no utiliza las capacidades de servidor del framework** (API Routes, Server Actions, SSR con acceso a base de datos). Toda la lógica de negocio, autenticación y persistencia vive en **naro-api**. Esta decisión responde a una restricción del TP: el backend debe desarrollarse obligatoriamente con **Java + Spring Boot**. Next.js se usa exclusivamente como framework de UI con React.
+Este frontend está construido con **Next.js 16**, y sí utiliza las capacidades de servidor del framework: **Server Actions** (`app/actions/auth.ts`) y un **Route Handler** (`app/api/auth/refresh/route.ts`) son el mecanismo central de autenticación (login, registro, logout y refresh de tokens contra cookies HTTP-only). Toda la lógica de negocio y persistencia de datos, sin embargo, vive en **naro-api**: Next.js no accede a ninguna base de datos directamente, solo orquesta auth y hace de capa de UI con React. Esta decisión responde a una restricción del TP: el backend debe desarrollarse obligatoriamente con **Java + Spring Boot**.
