@@ -1,15 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { getTokenExpiry } from '@/lib/auth/token'
 
 const PUBLIC_ROUTES = ['/login', '/register', '/recuperar-password']
-
-function getTokenExpiry(token: string): number | null {
-  try {
-    const payload = JSON.parse(atob(token.split('.')[1]))
-    return typeof payload.exp === 'number' ? payload.exp : null
-  } catch {
-    return null
-  }
-}
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
@@ -21,7 +13,10 @@ export function middleware(request: NextRequest) {
   const tokenValid = (() => {
     if (!accessToken) return false
     const exp = getTokenExpiry(accessToken)
-    return exp === null || exp * 1000 > Date.now()
+    // A present-but-undecodable/corrupted token must be treated as
+    // invalid, not waved through as if there were simply no expiry claim.
+    if (exp === null) return false
+    return exp * 1000 > Date.now()
   })()
 
   if (tokenValid) {
