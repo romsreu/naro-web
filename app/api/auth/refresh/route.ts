@@ -1,8 +1,10 @@
 'use server'
 
 import { NextRequest, NextResponse } from 'next/server'
+import { AUTH_BASE_URL } from '@/lib/auth/config'
+import { forwardSetCookies } from '@/lib/auth/cookies'
 
-const AUTH_BASE = process.env.AUTH_SERVICE_URL ?? 'http://localhost:8443/auth-service/api/auth'
+const AUTH_BASE = AUTH_BASE_URL
 
 export async function GET(request: NextRequest) {
   const next = request.nextUrl.searchParams.get('next') ?? '/'
@@ -31,26 +33,7 @@ export async function GET(request: NextRequest) {
 
   const response = NextResponse.redirect(new URL(next, request.url))
 
-  for (const cookieStr of res.headers.getSetCookie()) {
-    const parts = cookieStr.split(';').map((p) => p.trim())
-    const [nameValue, ...attrs] = parts
-    const eqIdx = nameValue.indexOf('=')
-    const name = nameValue.substring(0, eqIdx)
-    const value = nameValue.substring(eqIdx + 1)
-
-    const options: Parameters<typeof response.cookies.set>[2] = {}
-    for (const attr of attrs) {
-      const lower = attr.toLowerCase()
-      if (lower === 'httponly') options.httpOnly = true
-      else if (lower === 'secure') options.secure = true
-      else if (lower.startsWith('max-age=')) options.maxAge = parseInt(attr.split('=')[1])
-      else if (lower.startsWith('path=')) options.path = attr.split('=')[1]
-      else if (lower.startsWith('samesite='))
-        options.sameSite = attr.split('=')[1].toLowerCase() as 'strict' | 'lax' | 'none'
-    }
-
-    response.cookies.set(name, value, options)
-  }
+  forwardSetCookies(res, response.cookies)
 
   return response
 }

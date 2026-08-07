@@ -1,23 +1,15 @@
 import { cookies } from 'next/headers'
 import Link from 'next/link'
+import { decodeToken } from '@/lib/auth/token'
 import CartDropdown from './CartDropdown'
 import NotificationsDropdown from './NotificationsDropdown'
 import UserDropdown from './UserDropdown'
 import styles from './Navbar.module.css'
 
-function getNombreFromToken(token: string): string | null {
-  try {
-    const payload = JSON.parse(atob(token.split('.')[1]))
-    return payload.nombre ?? null
-  } catch {
-    return null
-  }
-}
-
 export default async function Navbar() {
   const cookieStore = await cookies()
   const accessToken = cookieStore.get('access_token')?.value
-  const nombre = accessToken ? getNombreFromToken(accessToken) : null
+  const nombre = accessToken ? decodeToken(accessToken).nombre ?? null : null
 
   return (
     <nav className={styles.navbar}>
