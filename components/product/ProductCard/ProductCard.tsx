@@ -1,12 +1,13 @@
 import Link from "next/link"
 import styles from "./ProductCard.module.css"
+import { PRODUCT_ICONS, type ProductIconKey } from "@/components/icons/ProductIcons"
 
 type Props = {
     id: string
     nombre: string
     precio: number
     precioOriginal?: number
-    imagen: string
+    icono: ProductIconKey
     vendedor: string
     rating: number
     totalReseñas: number
@@ -19,7 +20,7 @@ export default function ProductCard({
                                         nombre,
                                         precio,
                                         precioOriginal,
-                                        imagen,
+                                        icono,
                                         vendedor,
                                         rating,
                                         totalReseñas,
@@ -49,7 +50,7 @@ export default function ProductCard({
 
                 {/* Imagen */}
                 <div className={styles.img}>
-                    <span className={styles.emoji}>{imagen}</span>
+                    <span className={styles.icon}>{PRODUCT_ICONS[icono]}</span>
                 </div>
 
             </Link>
@@ -86,9 +87,7 @@ export default function ProductCard({
                         className={styles.btnCarrito}
                         onClick={() => onAgregarCarrito?.(id)}
                         aria-label="Agregar al carrito"
-                    >
-                        +
-                    </button>
+                    />
                 </div>
             </div>
         </div>
