@@ -2,11 +2,12 @@
 
 import { useState, useRef, useEffect } from 'react'
 import styles from './CartDropdown.module.css'
+import { PRODUCT_ICONS } from '@/components/icons/ProductIcons'
 
 const CART_ITEMS = [
-  { id: '1', nombre: 'Auriculares Inalámbricos BT Pro Max', precio: 12499, cantidad: 1, imagen: '🎧' },
-  { id: '2', nombre: 'Smartwatch Serie 9 AMOLED 44mm', precio: 34900, cantidad: 1, imagen: '⌚' },
-  { id: '3', nombre: 'Zapatillas Running Air Suela Amortiguada', precio: 28500, cantidad: 2, imagen: '👟' },
+  { id: '1', nombre: 'Auriculares Inalámbricos BT Pro Max', precio: 12499, cantidad: 1, icono: 'auriculares' as const },
+  { id: '2', nombre: 'Smartwatch Serie 9 AMOLED 44mm', precio: 34900, cantidad: 1, icono: 'smartwatch' as const },
+  { id: '3', nombre: 'Zapatillas Running Air Suela Amortiguada', precio: 28500, cantidad: 2, icono: 'zapatillas' as const },
 ]
 
 export default function CartDropdown() {
@@ -49,7 +50,7 @@ export default function CartDropdown() {
           <div className={styles.items}>
             {CART_ITEMS.map(item => (
               <div key={item.id} className={styles.item}>
-                <span className={styles.itemImg}>{item.imagen}</span>
+                <span className={styles.itemImg}>{PRODUCT_ICONS[item.icono]}</span>
                 <div className={styles.itemInfo}>
                   <span className={styles.itemNombre}>{item.nombre}</span>
                   <span className={styles.itemMeta}>Cantidad: {item.cantidad}</span>
