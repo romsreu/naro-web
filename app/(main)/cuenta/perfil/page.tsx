@@ -1,7 +1,12 @@
 import { cookies } from 'next/headers'
 import { decodeToken } from '@/lib/auth/token'
 import { getUsuarioPerfil } from '@/lib/usuarios/perfil'
+import { actualizarPerfilAction } from '@/app/actions/perfil'
+import EditableCard from '@/components/perfil/EditableCard/EditableCard'
+import UbicacionCard from '@/components/perfil/UbicacionCard/UbicacionCard'
 import styles from './page.module.css'
+
+const OPCIONES_GENERO = ['Femenino', 'Masculino', 'Otro', 'Prefiero no decir']
 
 function formatMiembroDesde(fecha?: string): string {
   if (!fecha) return '—'
@@ -38,73 +43,63 @@ export default async function PerfilPage() {
         </div>
       </div>
 
-      {/* ── Información personal ── */}
-      <div className={styles.card}>
-        <div className={styles.cardHeader}>
-          <span className={styles.cardTitle}>Información personal</span>
-          <button className={styles.btnEdit} type="button">Editar</button>
-        </div>
-        <div className={styles.rows}>
-          <div className={styles.row}>
-            <span className={styles.rowLabel}>Nombre completo</span>
-            <span className={styles.rowValue}>{nombre}</span>
-          </div>
-          <div className={styles.row}>
-            <span className={styles.rowLabel}>DNI</span>
-            <span className={styles.rowValue}>{perfil?.dni ? '•••••••••' : '—'}</span>
-          </div>
-          <div className={styles.row}>
-            <span className={styles.rowLabel}>Fecha de nacimiento</span>
-            <span className={styles.rowValue}>{formatFechaNacimiento(perfil?.fechaNacimiento)}</span>
-          </div>
-          <div className={styles.row}>
-            <span className={styles.rowLabel}>Género</span>
-            <span className={styles.rowValue}>{perfil?.genero ?? '—'}</span>
-          </div>
-        </div>
-      </div>
+      <EditableCard
+        titulo="Información personal"
+        onGuardar={actualizarPerfilAction}
+        campos={[
+          { key: 'nombre', label: 'Nombre', value: perfil?.nombre ?? '', requerido: true },
+          { key: 'apellido', label: 'Apellido', value: perfil?.apellido ?? '', requerido: true },
+          {
+            key: 'dni',
+            label: 'DNI',
+            value: perfil?.dni ? '•••••••••' : '',
+            soloLectura: true,
+          },
+          {
+            key: 'fechaNacimiento',
+            label: 'Fecha de nacimiento',
+            value: perfil?.fechaNacimiento ?? '',
+            mostrar: formatFechaNacimiento(perfil?.fechaNacimiento),
+            type: 'date',
+            requerido: true,
+          },
+          {
+            key: 'genero',
+            label: 'Género',
+            value: perfil?.genero ?? '',
+            type: 'select',
+            options: OPCIONES_GENERO,
+            requerido: true,
+          },
+        ]}
+      />
 
-      {/* ── Contacto ── */}
-      <div className={styles.card}>
-        <div className={styles.cardHeader}>
-          <span className={styles.cardTitle}>Contacto</span>
-          <button className={styles.btnEdit} type="button">Editar</button>
-        </div>
-        <div className={styles.rows}>
-          <div className={styles.row}>
-            <span className={styles.rowLabel}>Correo electrónico</span>
-            <span className={styles.rowValue}>{email}</span>
-            <span className={`${styles.badge} ${styles.badgeOk}`}>Verificado</span>
-          </div>
-          <div className={styles.row}>
-            <span className={styles.rowLabel}>Teléfono</span>
-            <span className={styles.rowValue}>{perfil?.telefono ?? '—'}</span>
-            <span className={`${styles.badge} ${styles.badgePending}`}>Sin verificar</span>
-          </div>
-        </div>
-      </div>
+      <EditableCard
+        titulo="Contacto"
+        onGuardar={actualizarPerfilAction}
+        campos={[
+          {
+            key: 'email',
+            label: 'Correo electrónico',
+            value: email,
+            soloLectura: true,
+            badge: { texto: 'Verificado', variante: 'ok' },
+          },
+          {
+            key: 'telefono',
+            label: 'Teléfono',
+            value: perfil?.telefono ?? '',
+            badge: { texto: 'Sin verificar', variante: 'pendiente' },
+          },
+        ]}
+      />
 
-      {/* ── Ubicación ── */}
-      <div className={styles.card}>
-        <div className={styles.cardHeader}>
-          <span className={styles.cardTitle}>Ubicación</span>
-          <button className={styles.btnEdit} type="button">Editar</button>
-        </div>
-        <div className={styles.rows}>
-          <div className={styles.row}>
-            <span className={styles.rowLabel}>Ciudad</span>
-            <span className={styles.rowValue}>{perfil?.ciudad ?? '—'}</span>
-          </div>
-          <div className={styles.row}>
-            <span className={styles.rowLabel}>Provincia</span>
-            <span className={styles.rowValue}>{perfil?.provincia ?? '—'}</span>
-          </div>
-          <div className={styles.row}>
-            <span className={styles.rowLabel}>País</span>
-            <span className={styles.rowValue}>{perfil?.pais ?? '—'}</span>
-          </div>
-        </div>
-      </div>
+      <UbicacionCard
+        pais={perfil?.pais ?? ''}
+        provincia={perfil?.provincia ?? ''}
+        ciudad={perfil?.ciudad ?? ''}
+        onGuardar={actualizarPerfilAction}
+      />
 
     </div>
   )
