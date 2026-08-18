@@ -9,12 +9,12 @@ export type CampoEditable = {
   label: string
   /** Valor crudo, el que viaja al backend y el que carga el input al editar. */
   value: string
+  /** Texto a mostrar en modo lectura, ya formateado por quien arma el campo (ej. una fecha). Si falta, se usa `value`. */
+  mostrar?: string
   type?: 'text' | 'date' | 'select'
   options?: string[]
   soloLectura?: boolean
   requerido?: boolean
-  /** Solo afecta cómo se muestra en modo lectura (ej. formatear una fecha). */
-  formatear?: (valor: string) => string
   badge?: { texto: string; variante: 'ok' | 'pendiente' }
 }
 
@@ -114,9 +114,7 @@ export default function EditableCard({ titulo, campos, onGuardar }: EditableCard
                 />
               )
             ) : (
-              <span className={styles.rowValue}>
-                {campo.value ? (campo.formatear ? campo.formatear(campo.value) : campo.value) : '—'}
-              </span>
+              <span className={styles.rowValue}>{(campo.mostrar ?? campo.value) || '—'}</span>
             )}
 
             {campo.badge && (

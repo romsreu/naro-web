@@ -58,9 +58,9 @@ export default async function PerfilPage() {
             key: 'fechaNacimiento',
             label: 'Fecha de nacimiento',
             value: perfil?.fechaNacimiento ?? '',
+            mostrar: formatFechaNacimiento(perfil?.fechaNacimiento),
             type: 'date',
             requerido: true,
-            formatear: formatFechaNacimiento,
           },
           {
             key: 'genero',
