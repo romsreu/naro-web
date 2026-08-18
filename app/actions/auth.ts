@@ -58,6 +58,9 @@ export async function registerAction(_: AuthState, formData: FormData): Promise<
   const dni = formData.get('dni') as string
   const fechaNacimiento = formData.get('fechaNacimiento') as string
   const genero = formData.get('genero') as string
+  const pais = formData.get('pais') as string
+  const provincia = formData.get('provincia') as string
+  const ciudad = formData.get('ciudad') as string
   const email = formData.get('email') as string
   const password = formData.get('password') as string
   const confirmPassword = formData.get('confirm') as string
@@ -73,6 +76,9 @@ export async function registerAction(_: AuthState, formData: FormData): Promise<
         dni,
         fechaNacimiento,
         genero,
+        pais,
+        provincia,
+        ciudad,
         email,
         password,
         confirmPassword,
