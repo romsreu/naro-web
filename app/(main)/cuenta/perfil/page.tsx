@@ -3,6 +3,7 @@ import { decodeToken } from '@/lib/auth/token'
 import { getUsuarioPerfil } from '@/lib/usuarios/perfil'
 import { actualizarPerfilAction } from '@/app/actions/perfil'
 import EditableCard from '@/components/perfil/EditableCard/EditableCard'
+import UbicacionCard from '@/components/perfil/UbicacionCard/UbicacionCard'
 import styles from './page.module.css'
 
 const OPCIONES_GENERO = ['Femenino', 'Masculino', 'Otro', 'Prefiero no decir']
@@ -93,14 +94,11 @@ export default async function PerfilPage() {
         ]}
       />
 
-      <EditableCard
-        titulo="Ubicación"
+      <UbicacionCard
+        pais={perfil?.pais ?? ''}
+        provincia={perfil?.provincia ?? ''}
+        ciudad={perfil?.ciudad ?? ''}
         onGuardar={actualizarPerfilAction}
-        campos={[
-          { key: 'ciudad', label: 'Ciudad', value: perfil?.ciudad ?? '' },
-          { key: 'provincia', label: 'Provincia', value: perfil?.provincia ?? '' },
-          { key: 'pais', label: 'País', value: perfil?.pais ?? '' },
-        ]}
       />
 
     </div>
