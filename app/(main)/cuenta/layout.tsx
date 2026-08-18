@@ -2,6 +2,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import AccountSidebar from '@/components/layout/AccountSidebar/AccountSidebar'
 import { decodeToken } from '@/lib/auth/token'
+import { getUsuarioPerfil } from '@/lib/usuarios/perfil'
 import styles from './layout.module.css'
 
 export default async function CuentaLayout({ children }: { children: React.ReactNode }) {
@@ -10,7 +11,9 @@ export default async function CuentaLayout({ children }: { children: React.React
 
   if (!accessToken) redirect('/login')
 
-  const nombre = decodeToken(accessToken).nombre ?? 'Usuario'
+  const { id } = decodeToken(accessToken)
+  const perfil = typeof id === 'number' ? await getUsuarioPerfil(id, accessToken) : null
+  const nombre = perfil ? `${perfil.nombre} ${perfil.apellido}` : 'Usuario'
 
   return (
     <div className={styles.page}>

@@ -1,6 +1,8 @@
 export type TokenPayload = {
+  id?: number
   nombre?: string
   email?: string
+  role?: string
   [key: string]: unknown
 }
 
