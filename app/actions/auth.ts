@@ -55,6 +55,9 @@ export async function loginAction(_: AuthState, formData: FormData): Promise<Aut
 export async function registerAction(_: AuthState, formData: FormData): Promise<AuthState> {
   const nombre = formData.get('nombre') as string
   const apellido = formData.get('apellido') as string
+  const dni = formData.get('dni') as string
+  const fechaNacimiento = formData.get('fechaNacimiento') as string
+  const genero = formData.get('genero') as string
   const email = formData.get('email') as string
   const password = formData.get('password') as string
   const confirmPassword = formData.get('confirm') as string
@@ -65,7 +68,11 @@ export async function registerAction(_: AuthState, formData: FormData): Promise<
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        nombre: `${nombre} ${apellido}`.trim(),
+        nombre,
+        apellido,
+        dni,
+        fechaNacimiento,
+        genero,
         email,
         password,
         confirmPassword,

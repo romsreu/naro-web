@@ -92,8 +92,45 @@ export default function RegisterPage() {
                 type="text"
                 placeholder="García"
                 className={styles.input}
+                required
               />
             </div>
+          </div>
+
+          <div className={styles.row}>
+            <div className={styles.field}>
+              <label className={styles.label} htmlFor="dni">DNI</label>
+              <input
+                id="dni"
+                name="dni"
+                type="text"
+                inputMode="numeric"
+                placeholder="12345678"
+                className={styles.input}
+                required
+              />
+            </div>
+            <div className={styles.field}>
+              <label className={styles.label} htmlFor="fechaNacimiento">FECHA DE NACIMIENTO</label>
+              <input
+                id="fechaNacimiento"
+                name="fechaNacimiento"
+                type="date"
+                className={styles.input}
+                required
+              />
+            </div>
+          </div>
+
+          <div className={styles.field}>
+            <label className={styles.label} htmlFor="genero">GÉNERO</label>
+            <select id="genero" name="genero" className={styles.input} required defaultValue="">
+              <option value="" disabled>Seleccioná una opción</option>
+              <option value="Femenino">Femenino</option>
+              <option value="Masculino">Masculino</option>
+              <option value="Otro">Otro</option>
+              <option value="Prefiero no decir">Prefiero no decir</option>
+            </select>
           </div>
 
           <div className={styles.field}>
