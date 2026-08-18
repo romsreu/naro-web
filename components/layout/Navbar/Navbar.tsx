@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers'
 import Link from 'next/link'
 import { decodeToken } from '@/lib/auth/token'
+import { getUsuarioPerfil } from '@/lib/usuarios/perfil'
 import CartDropdown from './CartDropdown'
 import NotificationsDropdown from './NotificationsDropdown'
 import UserDropdown from './UserDropdown'
@@ -9,7 +10,12 @@ import styles from './Navbar.module.css'
 export default async function Navbar() {
   const cookieStore = await cookies()
   const accessToken = cookieStore.get('access_token')?.value
-  const nombre = accessToken ? decodeToken(accessToken).nombre ?? null : null
+  const { id } = accessToken ? decodeToken(accessToken) : { id: undefined }
+  const perfil = accessToken && typeof id === 'number' ? await getUsuarioPerfil(id, accessToken) : null
+  // El dropdown depende solo de estar autenticado, no de que el fetch del
+  // perfil haya funcionado -> si user-service no responde, cae a un nombre
+  // generico pero la navegacion (Mi perfil, Configuraciones, salir) sigue andando.
+  const nombre = accessToken ? (perfil ? `${perfil.nombre} ${perfil.apellido}` : 'Usuario') : null
 
   return (
     <nav className={styles.navbar}>
