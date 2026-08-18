@@ -3,11 +3,13 @@
 import Link from 'next/link'
 import { useState, useActionState } from 'react'
 import { registerAction } from '../actions/auth'
+import { PAISES, PROVINCIAS, PROVINCIAS_ARGENTINA } from '@/lib/geo/argentina'
 import styles from './page.module.css'
 
 export default function RegisterPage() {
   const [state, action, isPending] = useActionState(registerAction, {})
   const [localError, setLocalError] = useState<string | null>(null)
+  const [provincia, setProvincia] = useState('')
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     const form = e.currentTarget
@@ -131,6 +133,49 @@ export default function RegisterPage() {
               <option value="Otro">Otro</option>
               <option value="Prefiero no decir">Prefiero no decir</option>
             </select>
+          </div>
+
+          <div className={styles.field}>
+            <label className={styles.label} htmlFor="pais">PAÍS</label>
+            <select id="pais" name="pais" className={styles.input} defaultValue={PAISES[0]}>
+              {PAISES.map((p) => (
+                <option key={p} value={p}>{p}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className={styles.row}>
+            <div className={styles.field}>
+              <label className={styles.label} htmlFor="provincia">PROVINCIA (opcional)</label>
+              <select
+                id="provincia"
+                name="provincia"
+                className={styles.input}
+                value={provincia}
+                onChange={(e) => setProvincia(e.target.value)}
+              >
+                <option value="">Sin especificar</option>
+                {PROVINCIAS.map((p) => (
+                  <option key={p} value={p}>{p}</option>
+                ))}
+              </select>
+            </div>
+            <div className={styles.field}>
+              <label className={styles.label} htmlFor="ciudad">CIUDAD (opcional)</label>
+              <select
+                key={provincia}
+                id="ciudad"
+                name="ciudad"
+                className={styles.input}
+                defaultValue=""
+                disabled={!provincia}
+              >
+                <option value="">{provincia ? 'Sin especificar' : 'Elegí una provincia primero'}</option>
+                {(PROVINCIAS_ARGENTINA[provincia] ?? []).map((c) => (
+                  <option key={c} value={c}>{c}</option>
+                ))}
+              </select>
+            </div>
           </div>
 
           <div className={styles.field}>
