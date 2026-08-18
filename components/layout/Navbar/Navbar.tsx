@@ -15,7 +15,7 @@ export default async function Navbar() {
   // El dropdown depende solo de estar autenticado, no de que el fetch del
   // perfil haya funcionado -> si user-service no responde, cae a un nombre
   // generico pero la navegacion (Mi perfil, Configuraciones, salir) sigue andando.
-  const nombre = accessToken ? (perfil ? `${perfil.nombre} ${perfil.apellido}` : 'Usuario') : null
+  const nombre = accessToken ? (perfil ? perfil.nombre : 'Usuario') : null
 
   return (
     <nav className={styles.navbar}>
